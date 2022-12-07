@@ -1,0 +1,30 @@
+<!-- <div class="pagination ">
+    <span class="step-links">
+        {% if page.has_previous %}
+        <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ page.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+        <span class="current">
+            Страница {{ page.number }} из {{ page.paginator.num_pages }}.
+        </span>
+        {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}">Следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div> -->
+
+
+<div class="btn-toolbar mb-5 pagination" role="toolbar" aria-label="Пагинация">
+    <div class="btn-group me-2" role="group" aria-label="Объявления">
+        {% if page.has_previous %}
+        <a type="button" class="btn btn-primary" href="?page={{ page.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+      <button type="button" class="btn btn-primary active current">Страница {{ page.number }} из {{ page.paginator.num_pages }}</button>
+      {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}"  type="button" class="btn btn-primary">Следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}"  type="button" class="btn btn-primary">Последняя &raquo;</a>
+    {% endif %}
+   
+    </div>
+  </div>

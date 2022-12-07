@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block head_title %}Поиск{% endblock head_title %}
+{% block content %}
+<h1>Найдено:</h1>
+
+<section >
+  <div class="row mb-4 wow fadeIn">
+    {% for post in object_list %}
+    <div class="col-lg-3 col-md-12 mb-4">
+      <a href="{{ item.get_absolute_url }}">
+      {% if post.photo %}
+      <!--Card-->
+      <div class="card">
+        <!--Card image-->
+        <div class="view overlay">
+          <div class="embed-responsive embed-responsive-16by9">
+            <img class="img-fluid w-100 rounded" src="{{ post.photo.url }}" 
+            alt="{{ post.title }}" style="height:250px;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="card">
+        <!--Card image-->
+        <div class="view overlay">
+          <div class="embed-responsive embed-responsive-16by9">
+            <img class="img-fluid w-100 rounded" src="https://mdbootstrap.com/img/Photos/Others/gradient1.jpg" 
+            alt="{{ post.title }}" style="height:250px;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+      {% endif %}
+          <!--Card content-->
+         
+            <!--Title-->
+            <h4 class="card-title">{{ post.title }}</h4>
+            <!--Text-->
+            <p class="card-text">
+              <small>{{ post.price}}</small>
+            </p>
+           {{ post.category }}
+            <p class="card-text">На сайте уже
+              <small class="text-secondary">{{ post.created_ad|timesince }}</small>
+            </p>
+        
+        <!--/.Card-->
+      </a>
+    </div>
+    {% empty %}
+    Объявлений нет
+    {% endfor %}
+  </div>
+  
+  <!--Pagination-->
+  {% include "pagination.html" with page=page_obj %}
+  <!--Pagination-->
+
+</section>
+<!-- <ul>
+    {% for post in object_list %}
+      <li>
+        <a href="{% url 'views_post' pk=post.pk %}">{{ post.title }}, {{ post.content }},
+             Категория: {{ post.category }}</a> 
+      </li>
+    {% endfor %}
+  </ul> -->
+{% endblock %}

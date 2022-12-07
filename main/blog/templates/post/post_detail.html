@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{post_item.title}} :: {{ block.super }}
+{% endblock %}
+
+{% block sidebar %} 
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+{% block content %} 
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-dismissible alert-success fade show" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>{{message}}</strong>
+    </div>
+ {% endfor %}
+{% endif %}
+
+<section>
+  <div class="row">
+   <div class="col-lg-6">
+    <div class="card">
+      {% if post_item.photo %}
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <a data-fancybox="gallery"
+              href="{{ post_item.photo.url }}"
+              data-caption="{{ post_item.title }}">
+            <img class="img-fluid rounded-start d-block w-100" src="{{ post_item.photo.url }}" allowfullscreen>
+          </a>
+          </div>
+          {% if post_item.images %}
+          {% for p in photos  %}
+          <div class="carousel-item">
+            <a data-fancybox="gallery"
+              href="{{ p.images.url }}"
+              data-caption="{{ post_item.title }}">
+            <img src="{{ p.images.url }}" class="d-block w-100" alt="{{ post_item.title }}"></a>
+          </div>
+         {% endfor %}
+         {% endif %}
+        </div>
+       
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Предыдущий</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Следующий</span>
+        </button>
+      </div>
+      {% else %}
+      {% endif %}
+    </div>
+   </div>
+   <div class="col-lg-6">
+      <h1 class="card-title">{{ post_item.title }}</h1>
+    <a href="{{ post_item.category.get_absolute_url }}" class="badge bg-secondary mb-2">{{ post_item.category }}
+    </a>
+    <p>Цена: <strong>{{ post_item.price }} ₽</strong></p>
+
+    <p>{{ post_item.content }}</p>
+    <div class="card mb-3" style="width: fit-content;">
+      <div class="row g-0">
+        <div class="col-auto">
+          <img src="{{ post_item.author.profile.avatar.url }}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-auto">
+          <div class="card-body">
+            <h5 class="card-title">{{ post_item.author.profile.phone_number }}</h5>
+            <p class="card-text">Автор: {{ post_item.author }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>{{ post_item.author.profile.bio}}</p>
+    <i class="text-muted">На сайте уже: {{ post_item.created_ad|timesince }}</i>   
+    {% if post.author == user %}
+    <div class="card-body mt-3">
+      <a class="btn btn-dark" href="{% url 'update_post' post_item.pk  %}" >Редактировать</a>
+    <a class="btn btn-outline-dark" href="{% url 'post_delete' post_item.pk  %}" >Удалить</a>
+    </div>
+    {% endif %}   
+  </div>
+  </div>
+</section>
+<div class="row mt-lg-5">
+  <div class="col-lg-7">
+    <h6>Комментарии - {{ post.comments.count }}</h6>
+    {% for comment in comments %}
+  <div class="card mb-2">
+    <div class="comment card-body">
+      <p class="info card-text">
+          Коммент {{ forloop.counter }} от {{ comment.name }}
+      </p>
+      {{ comment.body|linebreaks }}
+      <p class="text-end small">{{ comment.created }}</p>
+      <a class="btn btn-primary" href="#formComment" onclick="addComment('{{comment.name}}', '{{comment.id}}')">Ответить</a>
+      <a class="btn btn-primary" href="{% url 'delete_comment' comment.id %}" >Удалить</a>
+  </div>
+  </div>
+    {% empty %}
+        <p>Нету тут пока что комментов.</p>
+    {% endfor %}
+    </div>
+    <div class="col-lg-5">
+      <div class="sticky-top sticky-top-mt-5">
+        {% if new_comment %}
+      <h4>Ваш коммент добавлен</h4>
+      {% else %}
+          <h4>Добавить комментарий</h4>
+          <form action="." method="post" id="formComment">
+            {% csrf_token %}
+            {{ form.as_p }}
+              <input type="hidden" name="parent" id="commentparent" value="">
+              <input type="submit" class="btn btn-primary" value="Добавить коммент">
+          </form>
+      {% endif %}
+      </div>
+  </div>
+</div>
+<script>
+  function addComment(name, id){
+    document.getElementById('commentparent').value = id;
+    document.getElementById('id_body').innerText = `${name}, `
+  } 
+</script>
+{% endblock %}

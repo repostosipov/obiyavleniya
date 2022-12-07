@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет{% endblock title %}
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-dismissible alert-success fade show" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>{{message}}</strong>
+    </div>
+ {% endfor %}
+{% endif %}
+<div class="row my-3">
+    <div class="col-lg-3">
+        {% include 'inc/user_nav.html' %}
+    </div>
+    <div class="col">
+        <div class="container row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header">
+                    <h3 class="font-weight-light my-4 text-center">Редактировать профиль</h3>
+                </div>
+                {% if user_form.errors %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div id="form_errors">
+                        {% for key, value in user_form.errors.items %}
+                            <strong>{{ value }}</strong>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                <form method="post" enctype="multipart/form-data">
+
+                <div class="card-body">
+                    <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " 
+                    style="cursor: pointer; width: 100px; height: 100px; object-fit: cover;"/>
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="small my-1">Поменять аватар:</label>
+                                {{ profile_form.avatar }}
+                            </div>
+                            <div class="form-group row mt-3">
+                                <div class="col">
+                                    <label class="small mb-1">Логин:</label>
+                                    {{ user_form.username }}
+                                </div>
+                                <div class="col">
+                                    <label class="small mb-1">Email:</label>
+                                    {{ user_form.email }}
+                                </div>
+                            </div>
+                            
+                            <label class="small mt-3">О себе:</label> {{ profile_form.bio }}
+                            <div class="form-group row mt-3">
+                                <div class="col">
+                                    <label class="small mb-1">Телефон:</label> 
+                                    {{ profile_form.phone_number }}
+                                </div>
+                                <div class="col">
+                                    <label class="small mb-1">Город</label>
+                                    {{ profile_form.city }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    
+                </div>
+                <div class="card-footer">
+                    <button type="reset" class="btn btn-outline-dark">Сбросить</button>
+
+                    <button type="submit" class="btn btn-dark">Сохранить изменения</button>
+                </div>
+             </form>
+            </div>  
+          </div>     
+        </div>
+     
+    </div>
+</div>
+    
+   
+    <!-- {{ user.post }} 
+    {% for post in posts %}
+    <h3>{{ post.title }}</h3>
+   
+    <hr>
+{% endfor %} -->
+{% endblock content %}

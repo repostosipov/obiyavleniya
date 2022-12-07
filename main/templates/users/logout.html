@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Выйти{% endblock title %}
+{% block content %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">Ну и че? Ты вышел</h5>
+        <p class="card-text">
+            И на этом спасибо
+        </p>
+        <br><hr><a href="{% url 'login' %}" class="btn btn-primary">Войти снова</a>
+        </div>
+    </div>
+
+
+{% endblock content %}

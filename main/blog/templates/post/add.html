@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+{% block head_title %}{% if update %}Редактировать пост{% else %}Создать пост{% endif %}{% endblock head_title %}
+  :: {{ block.super }}
+{% endblock %}
+
+{% block sidebar %} 
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+{% block content %} 
+<div class="row my-3">
+  <div class="col-lg-3">
+    {% include 'inc/user_nav.html' %}
+  </div>
+      <div class="col">
+        <h1 class="title">{% if update %}Редактировать объявление{% else %}Создать объявление{% endif %}</h1>
+        <form  method="post" enctype="multipart/form-data" >
+          {% csrf_token %}
+          <!-- {{ form.as_p }} -->
+          {% crispy form %}
+        {% comment %}
+        {{ form.non_field.errors }}
+          <div class="form-group">
+              <label for="{{form.title.id_for_label}}">Название :</label>
+              {{ form.title }}
+              <div class="invalid-feedback">
+                  Опаньки {{ form.title.errors }}
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="{{form.content.id_for_label}}">Текст :</label>
+              {{ form.content }}
+              <div class="invalid-feedback">
+                  Опаньки {{ form.content.errors }}
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="{{form.is_published.id_for_label}}">Опубликовано?</label>
+              {{ form.is_published }}
+              <div class="invalid-feedback">
+                  Опаньки {{ form.is_published.errors }}
+              </div>
+          </div>
+          {% endcomment %}
+                   
+          <!-- <button type="submit" class="btn btn-lg btn-primary">Опубликовать</button> -->
+         
+      </form>
+      </div>
+    </div>
+<script src='{% static "jquery.formset.js" %}'></script>
+<script type="text/javascript">
+  $('.formset_row-{{ formset.prefix }}').formset({
+      addText: 'add another',
+      deleteText: 'remove',
+      prefix: '{{ formset.prefix }}',
+  });
+</script>
+{% endblock %}

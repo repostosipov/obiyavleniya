@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+{% block sidebar %} 
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-dismissible alert-success fade show" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>{{message}}</strong>
+    </div>
+ {% endfor %}
+{% endif %}
+<!--Section: Cards-->
+<section >
+  <div class="row mb-4 wow fadeIn">
+    <!--  in filter.qs -->
+    {% for item in post %}
+    <div class="col-6 col-lg-3 col-md-12 mb-4">
+      <a href="{{ item.get_absolute_url }}">
+      {% if item.photo %}
+      <!--Card-->
+      <div class="card">
+        <!--Card image-->
+        <div class="view overlay">
+          <div class="embed-responsive embed-responsive-16by9">
+            <img class="img-fluid w-100 rounded" src="{{ item.photo.url }}" 
+            alt="{{ item.title }}" style="height:250px;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="card">
+        <!--Card image-->
+        <div class="view overlay">
+          <div class="embed-responsive embed-responsive-16by9">
+            <img class="img-fluid w-100 rounded" src="https://mdbootstrap.com/img/Photos/Others/gradient1.jpg" 
+            alt="{{ item.title }}" style="height:250px;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+      {% endif %}
+            <!--Название объявления-->
+            <h4 class="card-title">{{ item.title }}</h4>
+            <a class="text-info" href="{% url 'category' item.category.pk %}">{{ item.category }}</a>
+
+            <p class="mb-1">
+              <small>{{ item.price}}</small>
+            </p>
+            <p class="mb-1">
+              <small>{{ item.author.profile.city}}</small>
+            </p>
+            <p class="mb-1">На сайте уже
+              <small class="text-secondary">{{ item.created_ad|timesince }}</small>
+            </p>
+          </a>
+    </div>
+    {% empty %}
+    Объявлений нет
+    {% endfor %}
+  </div>
+  
+  <!--Pagination-->
+  {% include "pagination.html" with page=page_obj %}
+  <!--Pagination-->
+
+</section>
+  <!--Section: Cards-->
+  {% include 'inc/main_foto.html' %}
+
+  <div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Смотрите также</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+      <div class="col">
+        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Запчасти на водную технику</h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+                <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+              </li>
+              <li class="d-flex align-items-center me-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                <small>Earth</small>
+              </li>
+              <li class="d-flex align-items-center">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
+                <small>3d</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('https://www.moryak.site/static/img/main/sailoe.webp');">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Работа в море. Вакансии</h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+                <img src="https://www.moryak.site/media/company_logo/mini3png" alt="Моряк Инфо" width="32" height="32" class="rounded-circle border border-white">
+              </li>
+              <li class="d-flex align-items-center me-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                <small>Вакансии</small>
+              </li>
+              <li class="d-flex align-items-center">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
+                <small>4d</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Морские новости. Моряк Инфо</h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+                <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+              </li>
+              <li class="d-flex align-items-center me-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                <small>California</small>
+              </li>
+              <li class="d-flex align-items-center">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
+                <small>5d</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

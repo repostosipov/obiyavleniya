@@ -1,0 +1,32 @@
+<div class="">
+  <ul class="nav nav-pills flex-lg-column mb-auto ">
+    <li class="nav-item">
+      <a href="{% url 'users-profile' %}" 
+        class="nav-link {% if request.resolver_match.url_name == 'users-profile' %}active{% endif %}"
+        aria-current="page">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+        Профиль
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'user_posts' %}" 
+        class="nav-link {% if request.resolver_match.url_name == 'user_posts' %}active{% endif %}">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+        Мои объявления
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'add_post' %}" 
+        class="nav-link {% if request.resolver_match.url_name == 'add_post' %}active{% endif %}">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+        Добавить объявление
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'password_change' %}" class="nav-link ">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+        Сменить пароль
+      </a>
+    </li>
+</ul>
+</div>

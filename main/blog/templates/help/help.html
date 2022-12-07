@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Техническая поддержка пользователей{% endblock title %}
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-dismissible alert-success fade show" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>{{message}}</strong>
+    </div>
+ {% endfor %}
+{% endif %}
+<div class="container">
+    <h1 class="h4">Техническая поддержка пользователей</h1>
+    <div class="accordion accordion-flush mb-5" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Не можете зайти на сайт под своим ником?
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Попробуйте восстановить пароль <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              Элемент аккордеона #2
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+              Элемент аккордеона #3
+            </button>
+          </h2>
+          <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+          </div>
+        </div>
+    </div>
+    <div class="card shadow-lg border-0 rounded">
+      <div class="card-header">
+        <h4>Остались вопросы?</h4>
+      </div>
+      <div class="card-body">
+        <form method="post" action="{% url 'help' %}" class="mb-3"> 
+          {% csrf_token %}
+          <!-- {{ form.name }}
+          {{ form.body }} -->
+       
+          <!-- <button type="submit" class="btn btn-primary mt-4" id="help">Отправить</button> -->
+          <div class="row g-2">
+            <div class="col-md">
+              <div class="form-floating">
+                {{ form.name }}
+                <label for="floatingInputGrid">Ваше имя</label>
+              </div>
+              <div class="form-floating mt-3">
+                <!-- <input type="phone" class="form-control" id="floatingInputGrid" placeholder="8 999 999 99 99" > -->
+                {{ form.phone }}
+                <label for="floatingInputGrid">Контактный телефон</label>
+              </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                  {{ form.body }}
+                  <label for="floatingTextarea2">Текст сообщения в техническую поддержку</label>
+                </div>
+              </div>
+          </div>
+          <button type="submit" class="btn btn-primary" id="help">Отправить сообщение</button>
+        </form>
+        <small>Отправляя данные этой формы, вы соглашаетесь с обработкой своих персональных данных сайтом "Морской Маркетплэйс"<br> в соответствии с принятой 
+          <a href="{% url 'confidence' %}" class="card-link">политикой конфиденциальности</a>.
+        </small>
+      </div>
+    </div>
+
+   
+</div>
+
+{% endblock content %}

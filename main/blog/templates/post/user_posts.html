@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-dismissible alert-success fade show" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>{{message}}</strong>
+    </div>
+ {% endfor %}
+{% endif %}
+
+<div class="row my-3">
+  <div class="col-lg-3">
+    {% include 'inc/user_nav.html' %}
+  </div>
+  <div class="col-lg-9 row">
+    {% for post in posts %}
+    {% if post.is_published == True %}
+    <div class="col-lg-4">
+        <div class="card mb-5">
+            {% if item.photo %}
+            <img src="{{ post.photo.url }}">
+            {% else %}{% endif %}
+            <div class="card-body">
+            <h4>{{ post.title }}</h4>
+        <p>{{ post.category }}</p>
+        <p>{{ post.updated_ad }}</p>
+          <a class="btn btn-primary" href="{% url 'update_post' post.pk  %}">Редактировать</a>
+          <a class="btn btn-primary" href="{% url 'post_delete' post.pk  %}">Удалить</a>
+          </div>
+        </div>        
+    </div>
+    {% endif %}
+    {% empty %}
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+      <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-normal">Для начала</h1>
+        <p class="lead fw-normal">Используйте маркетплейс совершенно бесплатно.</p>
+        <a class="btn btn-outline-secondary" href="{% url 'add_post' %}">Добавьте объявление</a>
+      </div>
+      <div class="product-device shadow-sm d-none d-md-block"></div>
+      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+    {% endfor %}
+      <!--Pagination-->
+  {% include "pagination.html" with page=page_obj %}
+  <!--Pagination-->
+    <h4>Архив объявлений</h4>
+    {% for post in posts %}
+    
+    {% if post.is_published == False %}
+    <div class="col-lg-4">
+      <div class="card">
+          {% if item.photo %}
+          <img src="{{ post.photo.url }}">
+          {% else %}{% endif %}
+          <div class="card-body">
+          <h4>{{ post.title }}</h4>
+      <p>{{ post.content }}</p>
+      <p>{{ post.category }}</p>
+      <p>Неактивное</p>
+        <a class="btn btn-secondary" href="{% url 'update_post' post.pk  %}">Поднять снова</a>
+        <a class="btn btn-secondary" href="{% url 'post_delete' post.pk  %}">Удалить</a>
+            </div>
+      </div>        
+  </div>
+    {% endif %}
+    {% endfor %}
+      <!--Pagination-->
+  {% include "pagination.html" with page=page_obj %}
+  <!--Pagination-->
+  </div>
+  <div class="col-lg-9 row">
+
+</div>
+</div>
+
+{% endblock %}

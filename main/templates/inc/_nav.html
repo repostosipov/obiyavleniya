@@ -1,0 +1,85 @@
+{% load blog_tags %}
+<!-- Navbar -->
+<nav class="fixed-top navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Eleventh navbar example">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">1Й МОРСКОЙ</a>
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarsExample09" >
+      <div class="col-lg-5 offset-lg-1">
+        <form action="{% url 'search_results' %}" method="get" class="input-group">
+          <input name="q" type="text" placeholder="Поиск по объявлениям" class="form-control" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Поиск</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg>
+          </button>
+        </form>
+      </div>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_post' %}">Добавить объявление</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">{{ user.get_username }}</a>
+          
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown09">
+            <li><a href="{% url 'users-profile' %}" class="dropdown-item">Профиль</a></li>
+              <li><a href="{% url 'add_post' %}" class="dropdown-item">Добавить объявление</a></li>
+              <li><a href="{% url 'user_posts' %}" class="dropdown-item">Мои объявления</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="{% url 'home' %}" class="dropdown-item">Помощь</a></li>
+              <li><a href="{% url 'logout' %}" class="dropdown-item">Выйти</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Войти</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users-register' %}">Регистрация</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<nav class="fixed-top scrolling-navbar bg-white">
+  <div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-between py-3 border-bottom">
+      <a class="navbar-brand waves-effect d-none d-lg-block" href="{% url 'home' %}">
+        <strong class="blue-text">1й МОРСКОЙ</strong>
+      </a>
+    
+        <form action="{% url 'search_results' %}" method="get" class="input-group search-form" >
+          <input name="q" type="text" placeholder="Поиск по объявлениям" class="form-control" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Поиск</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg>
+          </button>
+        </form>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle me-2"></i>{% if user.is_authenticated %}{{ user.get_username }} {% endif %}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            {% if user.is_authenticated %}
+              <li><a href="{% url 'users-profile' %}" class="dropdown-item">Профиль {{ user.get_username }}</a></li>
+              <li><a href="{% url 'add_post' %}" class="dropdown-item">Добавить объявление</a></li>
+              <li><a href="{% url 'user_posts' %}" class="dropdown-item">Мои объявления</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="{% url 'home' %}" class="dropdown-item">Помощь</a></li>
+              <li><a href="{% url 'logout' %}" class="dropdown-item">Выйти</a></li>
+            {% else %}
+              <a type="button" class="dropdown-item" href="{% url 'login' %}">Войти</a>
+              <a type="button" class="dropdown-item" href="{% url 'users-register' %}">Регистрация</a>      
+            {% endif %}
+          </ul>
+        </div>
+      
+    </header>
+  </div>
+  </nav>
+  <!-- Navbar -->

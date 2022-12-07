@@ -1,0 +1,45 @@
+{% load static %}
+<!--Footer-->
+  <div class="container">
+    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 mt-5 border-top">
+      <div class="col mb-3">
+        <a href="https://repost.website" target="_blank" class=" mb-3 link-dark text-decoration-none">
+          <img src="{% static 'img/r.svg' %}" alt="Производство компании Repost" class="w-25">
+          <br>
+        <p class="text-muted">© Продукт компании Repost<br> 2022,  Владивосток</p>
+      </a>
+
+        <p class="text-muted">Разработал Петр Осипов</p>
+      </div>
+  
+      <div class="col mb-3">
+  
+      </div>
+      <div class="col mb-3">
+  
+      </div>
+     
+  
+      <div class="col mb-3">
+        <h5>Документация</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="{% url 'confidence' %}" class="nav-link p-0 text-muted">Политика конфиденциальности</a></li>
+          <li class="nav-item mb-2"><a href="{% url 'doc' %}" class="nav-link p-0 text-muted">Пользовательское соглашения</a></li>
+          <li class="nav-item mb-2"><a href="{% url 'rules' %}" class="nav-link p-0 text-muted">Правила</a></li>
+          <li class="nav-item mb-2"><a href="{% url 'help' %}" class="nav-link p-0 text-muted">Техподдержка</a></li>
+        </ul>
+      </div>
+  
+      <div class="col mb-3">
+        <h5>Сервисы</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="https://www.moryak.site/vacancy/" class="nav-link p-0 text-muted">Вакансии</a></li>
+          <li class="nav-item mb-2"><a href="https://moryak.info/" class="nav-link p-0 text-muted">Морские новости</a></li>
+          <li class="nav-item mb-2"><a href="https://www.moryak.site/documents/" class="nav-link p-0 text-muted">Морские документы</a></li>
+          <li class="nav-item mb-2"><a href="https://www.moryak.site/allcompany/" class="nav-link p-0 text-muted">Справочник компаний</a></li>
+          <li class="nav-item mb-2"><a href="https://www.moryak.site/flot/" class="nav-link p-0 text-muted">Флот</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+  <!--/.Footer-->

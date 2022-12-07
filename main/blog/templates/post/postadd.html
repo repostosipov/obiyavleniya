@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block sidebar %} 
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+{% block content %} 
+
+<div class="container my-5 ">
+    <form  method="post" enctype="multipart/form-data">
+        <h1>Вторая страница</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <hr>
+        {{ formset }}
+        <button type="submit" class="btn btn-lg btn-primary">Опубликовать</button>
+    </form>
+</div>
+
+{% endblock %}
